@@ -1,30 +1,146 @@
 package com.e.topquiz.controller;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.e.topquiz.R;
+import com.e.topquiz.model.Question;
+import com.e.topquiz.model.QuestionBank;
 
-public class GameActivity extends AppCompatActivity {
-    private TextView mGreetinText;
-    private Button mPlayButton1;
-    private Button mPlayButton2;
-    private Button mPlayButton3;
-    private Button mPlayButton4;
+import java.util.Arrays;
+
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
+    private TextView mQuestionTextView;
+    private Button mAnswerButton1;
+    private Button mAnswerButton2;
+    private Button mAnswerButton3;
+    private Button mAnswerButton4;
+
+    private QuestionBank mQuestionBank;
+    private Question mCurrentQuestion;
+
+    private int mScore;
+    private int mNumberOfQuestion;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        mGreetinText = (TextView) findViewById(R.id.activity_game_question_text);
-        mPlayButton1 = (Button) findViewById(R.id.activity_game_answer1_btn);
-        mPlayButton2 = (Button) findViewById(R.id.activity_game_answer2_btn);
-        mPlayButton3 = (Button) findViewById(R.id.activity_game_answer3_btn);
-        mPlayButton4 = (Button) findViewById(R.id.activity_game_answer4_btn);
+
+        mQuestionBank = this.generateQuestions();
+
+        mScore = 0;
+        mNumberOfQuestion = 5;
+
+
+        mQuestionTextView = (TextView) findViewById(R.id.activity_game_question_text);
+        mAnswerButton1 = (Button) findViewById(R.id.activity_game_answer1_btn);
+        mAnswerButton2 = (Button) findViewById(R.id.activity_game_answer2_btn);
+        mAnswerButton3 = (Button) findViewById(R.id.activity_game_answer3_btn);
+        mAnswerButton4 = (Button) findViewById(R.id.activity_game_answer4_btn);
+
+        mAnswerButton1.setTag(0);
+        mAnswerButton2.setTag(1);
+        mAnswerButton3.setTag(2);
+        mAnswerButton4.setTag(3);
+
+        mAnswerButton1.setOnClickListener(this);
+        mAnswerButton2.setOnClickListener(this);
+        mAnswerButton3.setOnClickListener(this);
+        mAnswerButton4.setOnClickListener(this);
+
+        mCurrentQuestion = mQuestionBank.getQuestion();
+        this.displayQuestion(mCurrentQuestion);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int responseIndex = (int) v.getTag();
+
+        if (responseIndex == mCurrentQuestion.getAnswerIndex()) {
+            // good answer
+            Toast.makeText(this, "correct", Toast.LENGTH_SHORT).show();
+            mScore++;
+
+        } else {
+            // wrong answer
+            Toast.makeText(this, "wrong answer!", Toast.LENGTH_SHORT).show();
+        }
+        if (--mNumberOfQuestion == 0) {
+        // end of game
+            endGame();
+    }else{
+            mCurrentQuestion = mQuestionBank.getQuestion();
+            displayQuestion(mCurrentQuestion);
+        }
+    }
+
+    private void endGame() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    }
+
+    private void displayQuestion ( final Question question){
+            mQuestionTextView.setText(question.getQuestion());
+            mAnswerButton1.setText(question.getChoiceList().get(0));
+            mAnswerButton2.setText(question.getChoiceList().get(1));
+            mAnswerButton3.setText(question.getChoiceList().get(2));
+            mAnswerButton4.setText(question.getChoiceList().get(3));
+
+
+        }
+
+
+        private QuestionBank generateQuestions () {
+
+            Question question1 = new Question("Qui est le meilleur ami de Elsa?",
+                    Arrays.asList("Olaf", "Dingo", "Snoopy", "Hans"),
+                    0);
+
+            Question question2 = new Question("ou vie la reine des neige?",
+                    Arrays.asList("New York", "Paris", "Arendal", "Rome"),
+                    2);
+
+            Question question3 = new Question(" Quel animal est Peppa Pig?",
+                    Arrays.asList("Vache", "Zebre", "Cochon", "Poule"),
+                    2);
+
+            Question question4 = new Question("ou habite le pere noel?",
+                    Arrays.asList("Pole nord", "Inde", "Bouffemont", "Paris"),
+                    0);
+
+            Question question5 = new Question("Que mange le mouton?",
+                    Arrays.asList("Mc do", "Pizza", "Herbe", "Viande"),
+                    2);
+
+            Question question6 = new Question("Que mange la baleine?",
+                    Arrays.asList("du Foint", "du Plancton", "des Oeufs", "des Moutons"),
+                    1);
+
+            Question question7 = new Question("Ou habite la pricesse Sophia?",
+                    Arrays.asList("Maroc", "Paris", "Istamboul", "Avalor"),
+                    3);
+
+            Question question8 = new Question("Le traineau du Pere noel est trainé par?",
+                    Arrays.asList("Chevaux", "Lions", "Dindes", "Rennes"),
+                    3);
+
+            Question question9 = new Question("2+2 est egale a?",
+                    Arrays.asList("0", "2", "4", "6"),
+                    2);
+
+            Question question10 = new Question("Les playmobiles sont fabriqués en?",
+                    Arrays.asList("Carton", "Plastique", "Terre", "Bois"),
+                    1);
+
+            return new QuestionBank(Arrays.asList(question1, question2, question3, question4, question5, question6, question7, question8, question9, question10));
+        }
+
 
     }
-}
