@@ -31,4 +31,12 @@
         android:layout_marginTop="20dp"
         android:padding="20dp"
         android:text="Let's play"/>
+    <Button
+        android:id="@+id/activity_score_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="110dp"
+        android:text="best player ranking"/>
+
 </LinearLayout>
