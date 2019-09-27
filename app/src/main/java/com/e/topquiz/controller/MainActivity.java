@@ -25,7 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private Button mScoreButton;
     private User mUser;
     public static final int Game_Activity_Request_Code = 1;
+    public static final int Score_Activity_request_code = 2;
     private SharedPreferences mPreferences;
+
+    public static final String PREF_KEY_ByScore = "PREF_KEY_ByScore";
+    public static final String PREF_KEY_ByName = "PREF_KEY_ByName";
 
     public static final String PREF_KEY_SCORE = "PREF_KEY_SCORE";
     public static final String PREF_KEY_FIRSTNAME = "PREF_KEY_FIRSTNAME";
@@ -46,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         mUser = new User();
 
+
         mPreferences = getPreferences(MODE_PRIVATE);
+
         mGreetinText = (TextView) findViewById(R.id.activity_main_greetin_txt);
         mNameInput = (EditText) findViewById(R.id.activity_main_name_input);
         mPlayButton = (Button) findViewById(R.id.activity_main_btn);
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton.setEnabled(false);
 
         greetUser();
+
 
         mNameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -75,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         {
-
-
             mPlayButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,27 +93,33 @@ public class MainActivity extends AppCompatActivity {
                     startActivityForResult(gameActivityIntent,Game_Activity_Request_Code);
 
                 }
-
             });
+            mScoreButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    Intent ClassementActivityIntent = new Intent(MainActivity.this, ClassementActivity.class);
+                    startActivityForResult(ClassementActivityIntent,Score_Activity_request_code);
+
+                }
+            });
         }
-
-
     }
 
     private void greetUser() {
-        String Firstname = mPreferences.getString(PREF_KEY_FIRSTNAME,null);
+        String Firstname = mPreferences.getString(PREF_KEY_FIRSTNAME, null);
 
-        if (null!= Firstname){
-            int score = mPreferences.getInt(PREF_KEY_SCORE,0);
+        if (null != Firstname) {
+            int score = mPreferences.getInt(PREF_KEY_SCORE, 0);
             String fullText = "welcomme back," + Firstname
-            + "!\n last time your score was " + score
-            + ", do better this time";
+                    + "\n last time your score was " + score
+                    + ", do better this time";
             mGreetinText.setText(fullText);
             mNameInput.setText(Firstname);
             mNameInput.setSelection(Firstname.length());
             mPlayButton.setEnabled(true);
         }
+
     }
 
     @Override
@@ -140,4 +151,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         System.out.println("GameActivity::onPause()");
     }
+
+
 }

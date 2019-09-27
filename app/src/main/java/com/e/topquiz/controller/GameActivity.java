@@ -19,6 +19,7 @@ import com.e.topquiz.model.Question;
 import com.e.topquiz.model.QuestionBank;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView mQuestionTextView;
@@ -38,7 +39,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public static final String BUNDLE_STATE_QUESTION = "currentQuestion";
     private boolean mEnableTouchEvent;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             mNumberOfQuestions = savedInstanceState.getInt(BUNDLE_STATE_QUESTION);
         } else {
             mScore = 0;
-            mNumberOfQuestions = 4;
+            mNumberOfQuestions = 5;
         }
         mEnableTouchEvent = true;
 
