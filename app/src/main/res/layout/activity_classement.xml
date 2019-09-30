@@ -6,7 +6,7 @@
     tools:context=".controller.ClassementActivity">
 
     <TextView
-        android:id="@+id/activity_game_question_text"
+        android:id="@+id/activity_classement_text"
         android:layout_width="match_parent"
         android:layout_height="247dp"
         android:layout_marginStart="15dp"
@@ -28,6 +28,7 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/activity_classement_Button_Alphabet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -38,6 +39,7 @@
             android:text="Alphabet" />
 
         <RadioButton
+            android:id="@+id/activity_classement_Button_Score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -46,7 +48,8 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView4"
+
+        android:id="@+id/activity_classement_textView1"
         android:layout_width="match_parent"
         android:layout_height="287dp" />
 

@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int Score_Activity_request_code = 2;
     private SharedPreferences mPreferences;
 
-    public static final String PREF_KEY_ByScore = "PREF_KEY_ByScore";
-    public static final String PREF_KEY_ByName = "PREF_KEY_ByName";
 
     public static final String PREF_KEY_SCORE = "PREF_KEY_SCORE";
     public static final String PREF_KEY_FIRSTNAME = "PREF_KEY_FIRSTNAME";
@@ -99,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     Intent ClassementActivityIntent = new Intent(MainActivity.this, ClassementActivity.class);
-                    startActivityForResult(ClassementActivityIntent,Score_Activity_request_code);
+                    startActivity(ClassementActivityIntent);
 
                 }
             });
