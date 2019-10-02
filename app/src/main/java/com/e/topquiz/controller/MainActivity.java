@@ -27,10 +27,14 @@ public class MainActivity extends AppCompatActivity {
     public static final int Game_Activity_Request_Code = 1;
     public static final int Score_Activity_request_code = 2;
     private SharedPreferences mPreferences;
+    private String mName;
+    private int mScore;
+
 
 
     public static final String PREF_KEY_SCORE = "PREF_KEY_SCORE";
     public static final String PREF_KEY_FIRSTNAME = "PREF_KEY_FIRSTNAME";
+    public static final String PREF_KEY_USER = "PREF_KEY_USER";
 
 
     @Override
@@ -85,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     String firstnanme = mNameInput.getText().toString();
                     mUser.setFirstName(firstnanme);
-
                     mPreferences.edit().putString(PREF_KEY_FIRSTNAME,mUser.getFirstName()).apply();
                     Intent gameActivityIntent = new Intent(MainActivity.this, GameActivity.class);
                     startActivityForResult(gameActivityIntent,Game_Activity_Request_Code);
@@ -95,13 +98,20 @@ public class MainActivity extends AppCompatActivity {
             mScoreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    String firstnanme = mNameInput.getText().toString();
+                    int score = mPreferences.getInt(PREF_KEY_SCORE, 0);
                     Intent ClassementActivityIntent = new Intent(MainActivity.this, ClassementActivity.class);
+                    ClassementActivityIntent.putExtra("mName",firstnanme);
+                    ClassementActivityIntent.putExtra("mScore",score);
                     startActivity(ClassementActivityIntent);
-
                 }
+
+
             });
+
+
         }
+
     }
 
     private void greetUser() {
@@ -118,7 +128,11 @@ public class MainActivity extends AppCompatActivity {
             mPlayButton.setEnabled(true);
         }
 
-    }
+
+
+
+        }
+
 
     @Override
     protected void onPostResume() {
