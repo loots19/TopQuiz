@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.e.topquiz.R;
 import com.e.topquiz.model.User;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences mPreferences;
     private String mName;
     private int mScore;
-
+    
 
 
     public static final String PREF_KEY_SCORE = "PREF_KEY_SCORE";
